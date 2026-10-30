@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Build surveycast.zip (the upload archive) and validate it with the kit's checker.
 set -euo pipefail
+[ -n "${KIT:-}" ] && KIT="$(realpath "$KIT")"
 cd "$(dirname "$0")/.."
 KIT="${KIT:-kit}"
 rm -f surveycast.zip

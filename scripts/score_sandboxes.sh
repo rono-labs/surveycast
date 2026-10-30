@@ -2,6 +2,7 @@
 # Generate the three official sandboxes and score surveycast on each, phase 2
 # (TRAIN+DEV visible, TEST scored), with the run-time guard lifted.
 set -euo pipefail
+[ -n "${KIT:-}" ] && KIT="$(realpath "$KIT")"
 cd "$(dirname "$0")/.."
 KIT="${KIT:-kit}"
 PHASE="${PHASE:-2}"

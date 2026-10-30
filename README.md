@@ -24,7 +24,7 @@ Exact (unnoised) skill on the phase-2 split: TRAIN and DEV visible, TEST scored.
 | Afrobarometer R6 / R8 / R9 (proxy) | 0.0950 / 0.1799 / 0.1056 |
 | Argentina EPH household / person (proxy) | 0.3436 / 0.3860 |
 
-The sandboxes have invented dependencies, so model choices were made on the mean over the sandboxes and five proxy datasets built in the kit's format from real public microdata (`proxy/`). The MLP is the best single component; the stack beats it on all eight datasets. Training is stochastic on CPU threads, so expect agreement to about the third decimal.
+The sandboxes have invented dependencies, so model choices were made on the mean over the sandboxes and five proxy datasets built in the kit's format from real public microdata (`proxy/`). The MLP is the best single component; the stack beats it on all eight datasets. A fresh clone following the commands below reproduced the three sandbox numbers to four decimals.
 
 ## Try it
 
@@ -41,9 +41,9 @@ scripts/score_sandboxes.sh
 
 Each line prints a JSON record with `skill`, `std_error`, `log_score` and `seconds`. Per-item results go to `work/results/`. `PHASE=1 scripts/score_sandboxes.sh` scores the development split instead (TRAIN visible, DEV scored).
 
-`--no-deadline` lifts the run-time guard, so the full model runs even on a slow CPU. Without it the guard targets the hosted GPU budget and may drop the neural components on a CPU. The full phase-2 run takes roughly 5 to 15 minutes per instrument on 8 idle CPU threads.
+`--no-deadline` lifts the run-time guard, so the full model runs even on a slow CPU. Without it the guard targets the hosted GPU budget and may drop the neural components on a CPU. On 24 CPU threads the full phase-2 run took 118 s (UNICEF), 195 s (World Bank) and 930 s (UNHCR).
 
-Score the zip itself with the kit's official scorer (it builds its own environment per run):
+After `score_sandboxes.sh` has generated `work/sbx/`, score the zip itself with the kit's official scorer (it builds its own environment per run):
 
 ```bash
 scripts/package.sh                      # builds and validates surveycast.zip
