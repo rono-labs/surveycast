@@ -1,0 +1,5 @@
+kit/
+work/
+.venv/
+__pycache__/
+surveycast.zip
